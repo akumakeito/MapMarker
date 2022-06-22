@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="place_avatar_size">48dp</dimen>
+    <dimen name="common_spacing_max">32dp</dimen>
+    <dimen name="common_spacing">16dp</dimen>
+    <dimen name="common_spacing_min">8dp</dimen>
+    <dimen name="text_header0">32dp</dimen>
+    <dimen name="text_header1">24dp</dimen>
+    <dimen name="text_header2">20dp</dimen>
+    <dimen name="text_header3">16dp</dimen>
+    <dimen name="menu">24dp</dimen>
+    <dimen name="corner_radius">24dp</dimen>
+</resources>

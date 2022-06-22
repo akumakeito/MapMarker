@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/placesListFragment">
+    <fragment
+        android:id="@+id/placesListFragment"
+        android:name="com.netology.marker.ui.PlacesListFragment"
+        android:label="PlacesListFragment" >
+        <action
+            android:id="@+id/action_placesListFragment_to_navigation"
+            app:destination="@id/navigation" />
+        <action
+            android:id="@+id/action_placesListFragment_to_editPointFragment"
+            app:destination="@id/editPointFragment" />
+    </fragment>
+    <navigation android:id="@+id/navigation"
+        app:startDestination="@id/mapFragment">
+        <fragment
+            android:id="@+id/mapFragment"
+            android:name="com.netology.marker.ui.MapFragment"
+            android:label="map_fragment"
+            tools:layout="@layout/map_fragment">
+            <action
+                android:id="@+id/action_mapFragment_to_placesListFragment"
+                app:destination="@id/placesListFragment" />
+            <action
+                android:id="@+id/action_mapFragment_to_aboutPlaceFragment"
+                app:destination="@id/aboutPlaceFragment"/>
+            <argument
+                android:name="place_name"
+                app:argType="string" />
+            <argument
+                android:name="place_description"
+                app:argType="string" />
+            <action
+                android:id="@+id/action_mapFragment_to_newPointFragment"
+                app:destination="@id/newPointFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/aboutPlaceFragment"
+            android:name="com.netology.marker.ui.AboutPlaceFragment"
+            android:label="AboutPlaceFragment" />
+        <fragment
+            android:id="@+id/newPointFragment"
+            android:name="com.netology.marker.ui.NewPointFragment"
+            android:label="NewPointFragment" >
+            <argument
+                android:name="lat"
+                app:argType="string" />
+            <argument
+                android:name="lng"
+                app:argType="string" />
+        </fragment>
+    </navigation>
+    <fragment
+        android:id="@+id/editPointFragment"
+        android:name="com.netology.marker.ui.EditPointFragment"
+        android:label="EditPointFragment" />
+</navigation>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Marker</string>
+    <string name="add_new_point">Добавить новую точку</string>
+    <string name="add_name">Введите наименование</string>
+    <string name="add_description">Введите описание</string>
+    <string name="save">Сохранить</string>
+    <string name="edit">Редактировать</string>
+    <string name="remove">Удалить</string>
+    <string name="cant_remove">Невозожно удалить место</string>
+    <string name="cant_track">Извините, невозможно определить ваше местоположение</string>
+    <string name="coordinates">Координаты</string>
+    <string name="choose_coordinates">Выберите точку на карте</string>
+    <string name="show_list">show list</string>
+    <string name="create_new_point">Create new point</string>
+    <string name="error_blank_name">Пожалуйста, введите наименование</string>
+    <string name="Сancel">cancel</string>
+</resources>

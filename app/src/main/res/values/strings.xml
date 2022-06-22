@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Marker</string>
+    <string name="add_new_point">Add new point</string>
+    <string name="add_name">Enter name</string>
+    <string name="add_description">Enter description</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="remove">Remove</string>
+    <string name="cant_remove">Can\'t remove place</string>
+    <string name="cant_track">Sorry, can\'t track your location</string>
+    <string name="coordinates">Coordinates</string>
+    <string name="choose_coordinates">Choose point on map</string>
+    <string name="show_list">show list</string>
+    <string name="create_new_point">Create new point</string>
+    <string name="error_blank_name">Please fill the name</string>
+    <string name="Сancel">cancel</string>
+
+
+</resources>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/new_point_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/common_spacing"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextViewHeader0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_spacing"
+            android:text="@string/add_new_point" />
+
+        <TextView
+            style="@style/TextViewHeader1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:layout_marginTop="@dimen/common_spacing"
+            android:text="@string/add_name" />
+
+        <EditText
+            android:id="@+id/place_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:layout_marginTop="@dimen/common_spacing_min"
+            android:layout_marginEnd="@dimen/common_spacing"
+            android:layout_marginBottom="@dimen/common_spacing"
+            android:inputType="text"
+            android:padding="@dimen/common_spacing_min"
+            android:autofillHints="name" />
+
+        <TextView
+            style="@style/TextViewHeader1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:layout_marginTop="@dimen/common_spacing_min"
+            android:text="@string/add_description" />
+
+        <EditText
+            android:id="@+id/place_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:layout_marginTop="@dimen/common_spacing_min"
+            android:layout_marginEnd="@dimen/common_spacing"
+            android:inputType="textMultiLine"
+            android:layout_marginBottom="@dimen/common_spacing"
+            android:padding="@dimen/common_spacing_min" />
+
+        <TextView
+            style="@style/TextViewHeader1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:layout_marginTop="@dimen/common_spacing_min"
+            android:text="@string/coordinates" />
+
+        <TextView
+            android:id="@+id/place_coordinates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:layout_marginTop="@dimen/common_spacing_min"
+            android:layout_marginEnd="@dimen/common_spacing"
+            android:padding="@dimen/common_spacing_min" />
+
+
+        <Button
+            android:id="@+id/save_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:layout_marginTop="@dimen/common_spacing_max"
+            android:layout_marginEnd="@dimen/common_spacing"
+            android:text="@string/save"/>
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:layout_marginTop="@dimen/common_spacing_max"
+            android:layout_marginEnd="@dimen/common_spacing"
+            android:text="@string/Сancel"/>
+
+
+    </LinearLayout>
+</ScrollView>
