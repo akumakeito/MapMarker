@@ -59,15 +59,19 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
 
     private lateinit var collection: MarkerManager.Collection
 
-    @Inject
-    lateinit var mapViewModelFactory: MapViewModel.MapViewModelFactory
+    private val viewModel: PlaceViewModel by viewModels()
 
-    private val viewModel: MapViewModel by viewModels {
-        MapViewModel.providesFactory(
-            assistedFactory = mapViewModelFactory
-        )
-    }
+    private val markers = viewModel.data
 
+//    @Inject
+//    lateinit var mapViewModelFactory: MapViewModel.MapViewModelFactory
+//
+//    private val viewModel: MapViewModel by viewModels {
+//        MapViewModel.providesFactory(
+//            assistedFactory = mapViewModelFactory
+//        )
+//    }
+//
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
@@ -93,9 +97,9 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             )
         }
 
-//        viewModel.data.observe(viewLifecycleOwner) { places ->
-//            collection
-//        }
+        markers.observe(viewLifecycleOwner) {
+            collection.showAll()
+        }
 
 
         return binding.root
@@ -144,31 +148,46 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 }
             }
 
-            val target = LatLng(55.751999, 37.617734)
             val markerManager = MarkerManager(googleMap)
-            collection = markerManager.newCollection().apply {
-                val markers = viewModel.data
-                markers.map { places ->
-                    places.map { marker ->
-                        addMarker {
-                            position(marker.coordinates)
-                            title(marker.name)
-                            snippet(marker.description)
-                        }
-                    }
-                }
+            collection = markerManager.newCollection()
+
+            val target = LatLng(55.751999, 37.617734)
+//            val markerManager = MarkerManager(googleMap)
+//            collection = markerManager.newCollection()
+//                val markers = viewModel.data
+//                markers.map { places ->
+//                    places.map { marker ->
+//                        collection.addMarker {
+//                            position(marker.coordinates)
+//                            title(marker.name)
+//                            snippet(marker.description)
+//                        }
+//                    }
+//                }
 //                addMarker {
 //                    position(target)
 //                    title("The Moscow Kremlin")
 //                    snippet("sdhfajrgfiUWG")
 //                }.apply {
 //                    tag = "Any additional data"
-//                }
-            }
 
-            collection.setOnMarkerClickListener { marker ->
-                marker?.showInfoWindow()
-                true
+
+//            println("collectionOfMarkers" + collection)
+//
+//
+//            collection.setOnMarkerClickListener { marker ->
+//                marker?.showInfoWindow()
+//                true
+//            }
+
+            markers.map { places ->
+                places.map { marker ->
+                    collection.addMarker( MarkerOptions()
+                        .position(marker.coordinates)
+                        .title(marker.name)
+                        .snippet(marker.description)
+                    )
+                }
             }
 
             googleMap.setOnMapClickListener {  }
@@ -229,7 +248,21 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     override fun onMapReady(googleMap: GoogleMap) {
         googleMap.apply {
             setOnInfoWindowClickListener(this@MapFragment)
+
+            println("collectionOfMarkers" + collection)
+
+
+            collection.setOnMarkerClickListener { marker ->
+                marker?.showInfoWindow()
+                true
+            }
+
+            collection.showAll()
         }
+
+
+
+
     }
 
 
