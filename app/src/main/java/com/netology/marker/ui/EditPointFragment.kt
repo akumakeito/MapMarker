@@ -101,21 +101,19 @@ class EditPointFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
             } else {
-                binding.let {
-                    place?.let {
                         viewModel.changePlace(
-                            it.coordinates,
+                            place!!.coordinates,
                             name,
                             description
                         )
                         viewModel.save()
                     }
-                }
+
 
                 findNavController().navigateUp()
             }
 
-        }
+
 
         return binding.root
     }

@@ -82,15 +82,15 @@ class PlaceViewModel @Inject constructor(
             return
         }
 
-      //  if (edited.value?.id == 0L) {
+        //  if (edited.value?.id == 0L) {
 
 
         edited.value = edited.value?.copy(
-                coordinates = coords,
-                name = nameText,
-                description = descText
-            )
-    //        } else {
+            coordinates = coords,
+            name = nameText,
+            description = descText
+        )
+        //        } else {
 //            edited.value = edited.value?.copy(
 //                name = nameText,
 //                description = descText

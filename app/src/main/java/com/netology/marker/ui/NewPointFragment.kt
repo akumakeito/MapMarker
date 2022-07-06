@@ -55,9 +55,6 @@ class NewPointFragment : Fragment() {
         binding.placeName.requestFocus()
 
 
-        val place = arguments?.getParcelable<Place>(KEY_PLACE)
-
-
         binding.placeCoordinates.text = coords.toString()
 
 

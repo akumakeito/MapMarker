@@ -70,6 +70,10 @@ class PlaceAdapter(
                         }
                     }.show()
                 }
+
+                placeCard.setOnClickListener {
+                    onInteractionListener.onShow(place)
+                }
             }
 
 //            mapBinding.apply {

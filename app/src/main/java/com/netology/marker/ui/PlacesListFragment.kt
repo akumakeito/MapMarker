@@ -14,6 +14,7 @@ import com.netology.marker.adapter.OnInteractionListener
 import com.netology.marker.adapter.PlaceAdapter
 import com.netology.marker.databinding.PlacesFragmentBinding
 import com.netology.marker.dto.Place
+import com.netology.marker.ui.MapFragment.Companion.KEY_MARKER_LATLNG
 import com.netology.marker.viewModel.PlaceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -44,8 +45,6 @@ class PlacesListFragment : Fragment() {
 
         val adapter = PlaceAdapter(object : OnInteractionListener {
             override fun onEdit(place: Place) {
-                println("edited value onEdit Places Fragment  state: " + lifecycle.currentState)
-
                 viewModel.edit(place)
                 val bundle = Bundle()
                 bundle.putParcelable(KEY_PLACE, place)
@@ -58,7 +57,7 @@ class PlacesListFragment : Fragment() {
 
             override fun onShow(place: Place) {
                 val bundle = Bundle()
-                bundle.putLong(KEY_ID, place.id)
+                bundle.putParcelable(KEY_MARKER_LATLNG, place.coordinates)
                 findNavController().navigate(R.id.action_placesListFragment_to_navigation, bundle)
             }
         })
@@ -70,10 +69,6 @@ class PlacesListFragment : Fragment() {
         }
 
         viewModel.edited.observe(viewLifecycleOwner,) { place ->
-            println("edited value edited observe Places Fragment state: " + lifecycle.currentState)
-
-            println("edited value placefragment" + viewModel.edited + viewModel.edited.value)
-
             if(place.id == 0L) {
                 return@observe
             }
@@ -82,6 +77,7 @@ class PlacesListFragment : Fragment() {
         binding.showAll.setOnClickListener {
             findNavController().navigate(R.id.action_placesListFragment_to_navigation)
         }
+
         return binding.root
     }
 }
