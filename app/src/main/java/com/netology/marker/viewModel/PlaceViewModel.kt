@@ -52,8 +52,6 @@ class PlaceViewModel @Inject constructor(
 
     fun edit(place: Place) {
         edited.value = place
-        println("edited value edit view model")
-
     }
 
     fun removeById(id: Long) {
@@ -69,20 +67,14 @@ class PlaceViewModel @Inject constructor(
     fun save() {
         edited.value?.let {
             viewModelScope.launch {
-                println("edited value save view model")
-
                 repository.save(it)
             }
         }
-        println("edited value save empty view model")
 
         edited.value = empty
     }
 
     fun changePlace(coords: LatLng, name: String, description: String) {
-
-        println("edited value change view model")
-
         val nameText = name.trim()
         val descText = description.trim()
 
@@ -98,9 +90,7 @@ class PlaceViewModel @Inject constructor(
                 name = nameText,
                 description = descText
             )
-
-        println("edited value change after coping view model")
-//        } else {
+    //        } else {
 //            edited.value = edited.value?.copy(
 //                name = nameText,
 //                description = descText
