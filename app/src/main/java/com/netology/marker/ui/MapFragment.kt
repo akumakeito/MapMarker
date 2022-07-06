@@ -47,7 +47,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
 
     companion object {
         val KEY_MARKER_LAT = "lat"
-        val KEY_MARKER_LNG = "lng"
+        val KEY_MARKER_ID = "id"
         val KEY_MARKER_LATLNG = "latlng"
         val KEY_MARKER_TITLE = "titleMarker"
         val KEY_MARKER_DESCRIPTION = "titleDescription"
@@ -61,17 +61,8 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
 
     private val viewModel: PlaceViewModel by viewModels()
 
-    private val markers = viewModel.data
+    private var markers = emptyList<Place>()
 
-//    @Inject
-//    lateinit var mapViewModelFactory: MapViewModel.MapViewModelFactory
-//
-//    private val viewModel: MapViewModel by viewModels {
-//        MapViewModel.providesFactory(
-//            assistedFactory = mapViewModelFactory
-//        )
-//    }
-//
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
@@ -97,7 +88,10 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             )
         }
 
-        markers.observe(viewLifecycleOwner) {
+        viewModel.data.observe(viewLifecycleOwner) {
+            markers = it
+            addMarkers()
+
             collection.showAll()
         }
 
@@ -121,110 +115,97 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 }
             }
 
-            when {
-                ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED -> {
-                    googleMap.apply {
-                        isMyLocationEnabled = true
-                        uiSettings.isMyLocationButtonEnabled = true
+                when {
+                    ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED -> {
+                        googleMap.apply {
+                            isMyLocationEnabled = true
+                            uiSettings.isMyLocationButtonEnabled = true
+                        }
+
+                        val fusedLocationProviderClient = LocationServices
+                            .getFusedLocationProviderClient(requireActivity())
+
+                        fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+                            println(it)
+                        }
                     }
 
-                    val fusedLocationProviderClient = LocationServices
-                        .getFusedLocationProviderClient(requireActivity())
+                    shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                        //TODO: show dialog
+                    }
 
-                    fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-                        println(it)
+                    else -> {
+                        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                     }
                 }
 
-                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
-                    //TODO: show dialog
-                }
-
-                else -> {
-                    requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-                }
-            }
-
-            val markerManager = MarkerManager(googleMap)
-            collection = markerManager.newCollection()
-
-            val target = LatLng(55.751999, 37.617734)
-//            val markerManager = MarkerManager(googleMap)
-//            collection = markerManager.newCollection()
-//                val markers = viewModel.data
-//                markers.map { places ->
-//                    places.map { marker ->
-//                        collection.addMarker {
-//                            position(marker.coordinates)
-//                            title(marker.name)
-//                            snippet(marker.description)
-//                        }
-//                    }
-//                }
-//                addMarker {
-//                    position(target)
-//                    title("The Moscow Kremlin")
-//                    snippet("sdhfajrgfiUWG")
-//                }.apply {
-//                    tag = "Any additional data"
-
-
-//            println("collectionOfMarkers" + collection)
-//
-//
-//            collection.setOnMarkerClickListener { marker ->
-//                marker?.showInfoWindow()
-//                true
-//            }
-
-            markers.map { places ->
-                places.map { marker ->
-                    collection.addMarker( MarkerOptions()
-                        .position(marker.coordinates)
-                        .title(marker.name)
-                        .snippet(marker.description)
-                    )
-                }
-            }
-
-            googleMap.setOnMapClickListener {  }
-
-            //googleMap.setOnInfoWindowClickListener(this@MapFragment)
-            googleMap.awaitAnimateCamera(
-                CameraUpdateFactory.newCameraPosition(
-                    cameraPosition {
-                        target(target)
-                        zoom(15F)
+                googleMap.setOnMapLongClickListener { latLang ->
+                    googleMap.addMarker {
+                        position(latLang)
                     }
-                )
-            )
-
-            googleMap.setOnMapLongClickListener { latLang ->
-                googleMap.addMarker {
-                    position(latLang)
-                }
 
 
-                binding.createNewPoint.apply {
-                    visibility = View.VISIBLE
-                    setOnClickListener {
+                    binding.createNewPoint.apply {
+                        visibility = View.VISIBLE
+                    }
+
+                    binding.createNewPoint.setOnClickListener {
                         val bundle = Bundle()
                         bundle.putParcelable(KEY_MARKER_LATLNG, latLang)
                         //bundle.putParcelable(KEY_PLACE, Place(coordinates = latLang))
                         findNavController().navigate(
-                            R.id.newPointFragment,
+                            R.id.action_mapFragment_to_newPointFragment,
                             bundle
                         )
                     }
+
+                    //Bundle().getString(KEY_CANCEL)
                 }
 
-                //Bundle().getString(KEY_CANCEL)
+                val markerManager = MarkerManager(googleMap)
+                collection = markerManager.newCollection()
+
+                val target = LatLng(55.751999, 37.617734)
+
+                println("collectionOfMarkers" + collection)
+                collection.setOnMarkerClickListener { marker ->
+                    marker.showInfoWindow()
+                    true
+                }
+
+                collection.showAll()
+
+
+                googleMap.setOnMapClickListener { }
+
+                collection.setOnInfoWindowClickListener {
+//                val bundle = Bundle()
+//                bundle.putString(KEY_MARKER_DESCRIPTION, it.snippet)
+//                bundle.putString(KEY_MARKER_TITLE, it.title)
+//
+//                findNavController().navigate(
+//                    R.id.aboutPlaceFragment,
+//                    bundle
+//                )
+                }
+                googleMap.awaitAnimateCamera(
+                    CameraUpdateFactory.newCameraPosition(
+                        cameraPosition {
+                            target(target)
+                            zoom(15F)
+                        }
+                    )
+                )
             }
-        }
     }
+
+    override fun onMapReady(map: GoogleMap) {
+
+    }
+
 
     override fun onInfoWindowClick(marker: Marker) {
         Toast.makeText(
@@ -232,37 +213,29 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             "infoWindowClicked",
             Toast.LENGTH_LONG
         ).show()
-//        val name = marker.title
-//        val description = marker.snippet
-//
-//        val bundle = Bundle()
-//        bundle.putString(KEY_MARKER_TITLE, name)
-//        bundle.putString(KEY_MARKER_DESCRIPTION, description)
-//
-//        findNavController().navigate(
-//            R.id.aboutPlaceFragment,
-//            bundle
-//        )
+        val name = marker.title
+        val description = marker.snippet
+
+        val bundle = Bundle()
+        bundle.putString(KEY_MARKER_TITLE, name)
+        bundle.putString(KEY_MARKER_DESCRIPTION, description)
+
+        findNavController().navigate(
+            R.id.aboutPlaceFragment,
+            bundle
+        )
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        googleMap.apply {
-            setOnInfoWindowClickListener(this@MapFragment)
 
-            println("collectionOfMarkers" + collection)
-
-
-            collection.setOnMarkerClickListener { marker ->
-                marker?.showInfoWindow()
-                true
-            }
-
-            collection.showAll()
+    private fun addMarkers() {
+        for (marker in markers) {
+            collection.addMarker(
+                MarkerOptions()
+                    .position(marker.coordinates)
+                    .title(marker.name)
+                    .snippet(marker.description)
+            )
         }
-
-
-
-
     }
 
 

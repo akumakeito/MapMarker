@@ -33,21 +33,17 @@ class NewPointFragment : Fragment() {
 
     private val viewModel: PlaceViewModel by viewModels()
 
-//    @Inject
-//    lateinit var placeViewModelFactory: PlaceViewModel.PlaceViewModelFactory
-//
-//    private val viewModel: PlaceViewModel by viewModels {
-//        PlaceViewModel.providesFactory(
-//            assistedFactory = placeViewModelFactory
-//        )
-//    }
+    private lateinit var binding: NewPointBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = NewPointBinding.inflate(inflater, container, false)
+
+        println("fragment is created" + this)
+        binding = NewPointBinding.inflate(inflater, container, false)
 //
 //        arguments?.latLng?.let {
 //            it.toString()
@@ -99,8 +95,8 @@ class NewPointFragment : Fragment() {
 
         }
 
+
         return binding.root
     }
-
 }
 
