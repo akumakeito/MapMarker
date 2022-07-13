@@ -26,24 +26,6 @@ private val empty = Place(
 class PlaceViewModel @Inject constructor(
     private val repository: PlaceRepository
 ) : ViewModel() {
-//class PlaceViewModel @AssistedInject constructor(
-//    private val repository: PlaceRepository
-//) : ViewModel() {
-//
-//    @AssistedFactory
-//    interface PlaceViewModelFactory {
-//        fun create(): PlaceViewModel
-//    }
-//
-//    companion object {
-//        fun providesFactory(
-//            assistedFactory: PlaceViewModelFactory,
-//        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//                return assistedFactory.create() as T
-//            }
-//        }
-//    }
 
     val data = repository.data.asLiveData()
     private val _dataState = MutableLiveData<Place>()
@@ -52,6 +34,7 @@ class PlaceViewModel @Inject constructor(
 
     fun edit(place: Place) {
         edited.value = place
+        println("editedvalue " + edited.value + " " + edited)
     }
 
     fun removeById(id: Long) {
@@ -82,19 +65,17 @@ class PlaceViewModel @Inject constructor(
             return
         }
 
-        //  if (edited.value?.id == 0L) {
-
-
-        edited.value = edited.value?.copy(
-            coordinates = coords,
-            name = nameText,
-            description = descText
-        )
-        //        } else {
-//            edited.value = edited.value?.copy(
-//                name = nameText,
-//                description = descText
-//            )
-//        }
+        if (edited.value?.id == 0L) {
+            edited.value = edited.value?.copy(
+                coordinates = coords,
+                name = nameText,
+                description = descText
+            )
+        } else {
+            edited.value = edited.value?.copy(
+                name = nameText,
+                description = descText
+            )
+        }
     }
 }

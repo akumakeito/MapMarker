@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.netology.marker.databinding.AboutPlaceCardBinding
+import com.netology.marker.ui.MainActivity.Companion.KEY_MARKER_DESCRIPTION
+import com.netology.marker.ui.MainActivity.Companion.KEY_MARKER_TITLE
+
 import com.netology.marker.utils.StringArg
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,10 +32,9 @@ class AboutPlaceFragment : Fragment() {
         arguments?.description?.let(binding.description::setText)
 
         binding.apply {
-            name.setText(arguments?.getString(MapFragment.KEY_MARKER_TITLE))
-            description.setText(arguments?.getString(MapFragment.KEY_MARKER_DESCRIPTION))
+            name.setText(arguments?.getString(KEY_MARKER_TITLE))
+            description.setText(arguments?.getString(KEY_MARKER_DESCRIPTION))
         }
-
 
         return binding.root
     }

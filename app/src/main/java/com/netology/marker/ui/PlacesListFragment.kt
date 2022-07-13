@@ -6,34 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.netology.marker.R
 import com.netology.marker.adapter.OnInteractionListener
 import com.netology.marker.adapter.PlaceAdapter
 import com.netology.marker.databinding.PlacesFragmentBinding
 import com.netology.marker.dto.Place
-import com.netology.marker.ui.MapFragment.Companion.KEY_MARKER_LATLNG
+import com.netology.marker.ui.MainActivity.Companion.KEY_MARKER_LATLNG
+import com.netology.marker.ui.MainActivity.Companion.KEY_PLACE
 import com.netology.marker.viewModel.PlaceViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class PlacesListFragment : Fragment() {
 
     private val viewModel: PlaceViewModel by viewModels()
-//
-//    private val viewModel: PlaceViewModel by viewModels {
-//        PlaceViewModel.providesFactory(
-//            assistedFactory = placeViewModelFactory
-//        )
-//    }
-
-    companion object {
-        val KEY_ID = "id"
-        val KEY_PLACE = "place"
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -1,19 +1,15 @@
 package com.netology.marker.adapter
 
-import android.opengl.Visibility
 import android.view.LayoutInflater
-import android.view.View
-import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.constraintlayout.widget.ConstraintSet.GONE
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.netology.marker.databinding.CardPlacePointBinding
-import com.netology.marker.dto.Place
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.netology.marker.R
+import com.netology.marker.databinding.CardPlacePointBinding
 import com.netology.marker.databinding.MapShowPointBinding
+import com.netology.marker.dto.Place
 
 interface OnInteractionListener {
     fun onEdit(place: Place)

@@ -17,7 +17,6 @@ import com.netology.marker.viewModel.PlaceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import android.Manifest
 import android.content.pm.PackageManager
-import android.os.Parcelable
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.LocationServices
@@ -32,19 +31,14 @@ import com.google.maps.android.ktx.awaitAnimateCamera
 import com.google.maps.android.ktx.model.cameraPosition
 import com.netology.marker.databinding.MapFragmentBinding
 import com.netology.marker.dto.Place
-import com.netology.marker.ui.PlacesListFragment.Companion.KEY_PLACE
-import com.netology.marker.utils.ParcelableArg
+import com.netology.marker.ui.MainActivity.Companion.KEY_CANCEL
+import com.netology.marker.ui.MainActivity.Companion.KEY_MARKER_DESCRIPTION
+import com.netology.marker.ui.MainActivity.Companion.KEY_MARKER_LATLNG
+import com.netology.marker.ui.MainActivity.Companion.KEY_MARKER_TITLE
+
 
 @AndroidEntryPoint
 class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyCallback {
-
-    companion object {
-        val KEY_MARKER_LAT = "lat"
-        val KEY_MARKER_ID = "id"
-        val KEY_MARKER_LATLNG = "latlng"
-        val KEY_MARKER_TITLE = "titleMarker"
-        val KEY_MARKER_DESCRIPTION = "titleDescription"
-    }
 
     private lateinit var googleMap: GoogleMap
 
@@ -55,6 +49,11 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     private val viewModel: PlaceViewModel by viewModels()
 
     private var markers = emptyList<Place>()
+    private var currentMarker : Marker? = null
+
+    private var coords: LatLng? = null
+
+    private var isCanceled = false
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -88,6 +87,9 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             collection.showAll()
         }
 
+        coords = arguments?.getParcelable(KEY_MARKER_LATLNG)
+        isCanceled = arguments!!.getBoolean(KEY_CANCEL)
+        println("isCanceled" + isCanceled)
 
         return binding.root
 
@@ -136,7 +138,8 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             }
 
             googleMap.setOnMapLongClickListener { latLang ->
-                googleMap.addMarker {
+
+                currentMarker = googleMap.addMarker {
                     position(latLang)
                 }
 
@@ -148,22 +151,18 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 binding.createNewPoint.setOnClickListener {
                     val bundle = Bundle()
                     bundle.putParcelable(KEY_MARKER_LATLNG, latLang)
-                    //bundle.putParcelable(KEY_PLACE, Place(coordinates = latLang))
                     findNavController().navigate(
                         R.id.action_mapFragment_to_newPointFragment,
                         bundle
                     )
                 }
 
-                //Bundle().getString(KEY_CANCEL)
             }
 
             val markerManager = MarkerManager(googleMap)
             collection = markerManager.newCollection()
 
             val startTarget = LatLng(55.751999, 37.617734)
-
-            println("collectionOfMarkers" + collection)
 
 
             collection.showAll()
@@ -182,14 +181,12 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 )
             }
 
-            val coords = arguments?.getParcelable<LatLng>(KEY_MARKER_LATLNG)
-
             googleMap.awaitAnimateCamera(
                 CameraUpdateFactory.newCameraPosition(
                     cameraPosition {
                         var target = startTarget
                         coords?.let {
-                            println( "target is $target, place is ${it}" )
+                            println("target is $target, place is ${it}")
                             target = it
                         }
                         target(target)
@@ -205,6 +202,15 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
             marker.showInfoWindow()
             true
         }
+
+        if (isCanceled) {
+            map.apply {
+                currentMarker?.remove()
+            }
+        }
+
+
+
     }
 
 

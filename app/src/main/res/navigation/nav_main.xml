@@ -45,7 +45,11 @@
         <fragment
             android:id="@+id/newPointFragment"
             android:name="com.netology.marker.ui.NewPointFragment"
-            android:label="NewPointFragment" />
+            android:label="NewPointFragment" >
+            <action
+                android:id="@+id/action_newPointFragment_to_mapFragment"
+                app:destination="@id/mapFragment" />
+        </fragment>
     </navigation>
     <fragment
         android:id="@+id/editPointFragment"
