@@ -105,10 +105,4 @@ dependencies {
     implementation "com.google.maps.android:maps-ktx:$maps_ktx_version"
     implementation "com.google.maps.android:maps-utils-ktx:$maps_ktx_version"
 
-    implementation "com.google.code.gson:gson:$gson"
-
-
-
-
-
 }

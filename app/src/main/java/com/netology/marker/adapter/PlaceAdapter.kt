@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.netology.marker.R
 import com.netology.marker.databinding.CardPlacePointBinding
-import com.netology.marker.databinding.MapShowPointBinding
 import com.netology.marker.dto.Place
 
 interface OnInteractionListener {
@@ -23,10 +22,8 @@ class PlaceAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceCardViewHolder {
         val cardBinding =
             CardPlacePointBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val mapBinding = MapShowPointBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PlaceCardViewHolder(
             cardBinding,
-            mapBinding,
             onInteractionListener
         )
     }
@@ -38,7 +35,6 @@ class PlaceAdapter(
 
     class PlaceCardViewHolder(
         private val cardPlaceBinding: CardPlacePointBinding,
-        private val mapBinding: MapShowPointBinding,
         private val onInteractionListener: OnInteractionListener
     ) : RecyclerView.ViewHolder(cardPlaceBinding.root) {
         fun bind(place: Place) {

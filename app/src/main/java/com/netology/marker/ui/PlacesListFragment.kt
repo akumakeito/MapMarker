@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.netology.marker.R
@@ -20,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PlacesListFragment : Fragment() {
 
-    private val viewModel: PlaceViewModel by viewModels()
+    private val viewModel: PlaceViewModel by activityViewModels<PlaceViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
