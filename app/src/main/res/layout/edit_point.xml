@@ -34,9 +34,9 @@
             android:layout_marginTop="@dimen/common_spacing_min"
             android:layout_marginEnd="@dimen/common_spacing"
             android:layout_marginBottom="@dimen/common_spacing"
+            android:autofillHints="name"
             android:inputType="text"
-            android:padding="@dimen/common_spacing_min"
-            android:autofillHints="name" />
+            android:padding="@dimen/common_spacing_min" />
 
         <TextView
             style="@style/TextViewHeader1"
@@ -53,8 +53,8 @@
             android:layout_marginStart="@dimen/common_spacing"
             android:layout_marginTop="@dimen/common_spacing_min"
             android:layout_marginEnd="@dimen/common_spacing"
-            android:inputType="textMultiLine"
             android:layout_marginBottom="@dimen/common_spacing"
+            android:inputType="textMultiLine"
             android:padding="@dimen/common_spacing_min" />
 
         <TextView
@@ -82,7 +82,7 @@
             android:layout_marginStart="@dimen/common_spacing"
             android:layout_marginTop="@dimen/common_spacing_max"
             android:layout_marginEnd="@dimen/common_spacing"
-            android:text="@string/save"/>
+            android:text="@string/save" />
 
         <Button
             android:id="@+id/cancel_btn"
@@ -91,7 +91,7 @@
             android:layout_marginStart="@dimen/common_spacing"
             android:layout_marginTop="@dimen/common_spacing_max"
             android:layout_marginEnd="@dimen/common_spacing"
-            android:text="@string/Сancel"/>
+            android:text="@string/cancel" />
 
 
     </LinearLayout>

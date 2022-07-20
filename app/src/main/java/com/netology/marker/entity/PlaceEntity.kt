@@ -3,13 +3,12 @@ package com.netology.marker.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.netology.marker.dto.Place
 
 @Entity
 data class PlaceEntity(
     @PrimaryKey(autoGenerate = true)
-    val id : Long,
+    val id: Long,
     val coordinatesLat: Double,
     val coordinatesLng: Double,
     val name: String,
@@ -21,8 +20,9 @@ data class PlaceEntity(
         name,
         description
     )
+
     companion object {
-        fun fromDto(dto : Place) = PlaceEntity(
+        fun fromDto(dto: Place) = PlaceEntity(
             dto.id,
             dto.coordinates.latitude,
             dto.coordinates.longitude,
@@ -32,7 +32,7 @@ data class PlaceEntity(
     }
 }
 
-fun List<PlaceEntity>.toDto() : List<Place> = map(PlaceEntity::toDto)
-fun List<Place>.toEntity() : List<PlaceEntity> = map(PlaceEntity::fromDto)
+fun List<PlaceEntity>.toDto(): List<Place> = map(PlaceEntity::toDto)
+fun List<Place>.toEntity(): List<PlaceEntity> = map(PlaceEntity::fromDto)
 
 

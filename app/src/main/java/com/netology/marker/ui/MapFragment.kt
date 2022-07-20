@@ -1,40 +1,40 @@
 package com.netology.marker.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.maps.android.ktx.awaitMap
-import com.netology.marker.R
-import com.netology.marker.viewModel.PlaceViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import android.Manifest
-import android.content.pm.PackageManager
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.collections.MarkerManager
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitAnimateCamera
+import com.google.maps.android.ktx.awaitMap
 import com.google.maps.android.ktx.model.cameraPosition
+import com.netology.marker.R
 import com.netology.marker.databinding.MapFragmentBinding
 import com.netology.marker.dto.Place
 import com.netology.marker.ui.MainActivity.Companion.KEY_CANCEL
 import com.netology.marker.ui.MainActivity.Companion.KEY_MARKER_DESCRIPTION
 import com.netology.marker.ui.MainActivity.Companion.KEY_MARKER_LATLNG
 import com.netology.marker.ui.MainActivity.Companion.KEY_MARKER_TITLE
+import com.netology.marker.viewModel.PlaceViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
@@ -49,7 +49,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
     private val viewModel: PlaceViewModel by viewModels()
 
     private var markers = emptyList<Place>()
-    private var currentMarker : Marker? = null
+    private var currentMarker: Marker? = null
 
     private var coords: LatLng? = null
 
@@ -71,7 +71,7 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = MapFragmentBinding.inflate(inflater, container, false)
 
         binding.showAll.setOnClickListener {
@@ -208,7 +208,6 @@ class MapFragment : Fragment(), GoogleMap.OnInfoWindowClickListener, OnMapReadyC
                 currentMarker?.remove()
             }
         }
-
 
 
     }

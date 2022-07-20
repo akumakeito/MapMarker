@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.netology.marker.R
 import com.netology.marker.adapter.OnInteractionListener
@@ -36,7 +35,10 @@ class PlacesListFragment : Fragment() {
                 viewModel.edit(place)
                 val bundle = Bundle()
                 bundle.putParcelable(KEY_PLACE, place)
-                findNavController().navigate(R.id.action_placesListFragment_to_editPointFragment, bundle)
+                findNavController().navigate(
+                    R.id.action_placesListFragment_to_editPointFragment,
+                    bundle
+                )
             }
 
             override fun onRemove(place: Place) {
@@ -56,8 +58,8 @@ class PlacesListFragment : Fragment() {
             adapter.submitList(places)
         }
 
-        viewModel.edited.observe(viewLifecycleOwner,) { place ->
-            if(place.id == 0L) {
+        viewModel.edited.observe(viewLifecycleOwner) { place ->
+            if (place.id == 0L) {
                 return@observe
             }
         }

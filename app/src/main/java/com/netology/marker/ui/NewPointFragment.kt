@@ -28,7 +28,7 @@ class NewPointFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = NewPointBinding.inflate(inflater, container, false)
 
@@ -38,8 +38,8 @@ class NewPointFragment : Fragment() {
         binding.placeCoordinates.text = coords.toString()
 
         binding.cancelBtn.setOnClickListener {
-                val bundle = Bundle()
-                bundle.putBoolean(KEY_CANCEL, true)
+            val bundle = Bundle()
+            bundle.putBoolean(KEY_CANCEL, true)
             findNavController().navigate(R.id.action_newPointFragment_to_mapFragment, bundle)
         }
 

@@ -1,18 +1,14 @@
 package com.netology.marker.viewModel
 
-import android.os.Bundle
-import android.widget.Toast
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.netology.marker.R
 import com.netology.marker.dto.Place
 import com.netology.marker.repository.PlaceRepository
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 private val empty = Place(

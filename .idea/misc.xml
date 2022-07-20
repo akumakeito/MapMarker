@@ -11,9 +11,10 @@
         <entry key="app/src/main/res/layout/about_place_card.xml" value="0.17395833333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/card_place_point.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/edit_point.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/map.xml" value="0.1" />
         <entry key="app/src/main/res/layout/mapShowPoint.xml" value="0.18177083333333333" />
-        <entry key="app/src/main/res/layout/map_fragment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/map_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/map_new_point.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/map_show_point.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/new_point.xml" value="0.18177083333333333" />

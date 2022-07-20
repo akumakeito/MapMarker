@@ -4,8 +4,8 @@ import com.netology.marker.dto.Place
 import kotlinx.coroutines.flow.Flow
 
 interface PlaceRepository {
-    val data : Flow<List<Place>>
+    val data: Flow<List<Place>>
     suspend fun getAll()
     suspend fun save(place: Place)
-    suspend fun removeById(id : Long)
+    suspend fun removeById(id: Long)
 }

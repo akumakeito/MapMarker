@@ -1,7 +1,6 @@
 package com.netology.marker.ui
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,19 +11,13 @@ import androidx.navigation.fragment.findNavController
 import com.netology.marker.R
 import com.netology.marker.databinding.EditPointBinding
 import com.netology.marker.dto.Place
+import com.netology.marker.ui.MainActivity.Companion.KEY_CANCEL
 import com.netology.marker.ui.MainActivity.Companion.KEY_PLACE
-import com.netology.marker.utils.ParcelableArg
 import com.netology.marker.viewModel.PlaceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EditPointFragment : Fragment() {
-
-    companion object {
-        var Bundle.latLng: Parcelable? by ParcelableArg
-
-
-    }
 
     private val viewModel by activityViewModels<PlaceViewModel>()
 
@@ -44,12 +37,12 @@ class EditPointFragment : Fragment() {
                 placeDescription.setText(it.description)
             }
 
-            binding.placeCoordinates.setText(it.coordinates.toString())
+            binding.placeCoordinates.text = it.coordinates.toString()
         }
 
         binding.cancelBtn.setOnClickListener {
-            //    val bundle = Bundle()
-            //    bundle.putString(KEY_CANCEL, "cancel")
+            val bundle = Bundle()
+            bundle.putString(KEY_CANCEL, "cancel")
             findNavController().navigateUp()
         }
 

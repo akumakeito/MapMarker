@@ -91,7 +91,7 @@
             android:layout_marginStart="@dimen/common_spacing"
             android:layout_marginTop="@dimen/common_spacing_max"
             android:layout_marginEnd="@dimen/common_spacing"
-            android:text="@string/Сancel" />
+            android:text="@string/cancel" />
 
 
     </LinearLayout>

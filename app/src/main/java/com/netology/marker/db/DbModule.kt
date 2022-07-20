@@ -16,12 +16,12 @@ class DbModule {
 
     @Provides
     @Singleton
-    fun provideAppDb(@ApplicationContext context: Context) : AppDB = Room.databaseBuilder(
+    fun provideAppDb(@ApplicationContext context: Context): AppDB = Room.databaseBuilder(
         context,
         AppDB::class.java,
         "App.db"
     ).build()
 
     @Provides
-    fun providePlaceDao (appDB: AppDB) : PlaceDao = appDB.placeDao()
+    fun providePlaceDao(appDB: AppDB): PlaceDao = appDB.placeDao()
 }

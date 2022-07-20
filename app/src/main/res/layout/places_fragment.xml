@@ -10,17 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/card_place_point"/>
+        tools:listitem="@layout/card_place_point" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/show_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/common_spacing"
         android:clickable="true"
         android:focusable="true"
-        android:layout_gravity="bottom|end"
-        android:src="@drawable/ic_baseline_map_24"/>
+        android:src="@drawable/ic_baseline_map_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

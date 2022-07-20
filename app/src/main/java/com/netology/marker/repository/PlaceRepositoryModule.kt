@@ -12,5 +12,5 @@ interface PlaceRepositoryModule {
 
     @Binds
     @Singleton
-    fun bindRepositoryImpl(placeRepository: PlaceRepositoryImpl) :PlaceRepository
+    fun bindRepositoryImpl(placeRepository: PlaceRepositoryImpl): PlaceRepository
 }

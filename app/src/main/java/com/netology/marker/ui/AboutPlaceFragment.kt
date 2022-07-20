@@ -18,7 +18,7 @@ class AboutPlaceFragment : Fragment() {
 
     companion object {
         var Bundle.name: String? by StringArg
-        var Bundle.description : String? by StringArg
+        var Bundle.description: String? by StringArg
     }
 
     override fun onCreateView(

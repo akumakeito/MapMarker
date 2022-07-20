@@ -13,7 +13,5 @@
     <string name="show_list">show list</string>
     <string name="create_new_point">Create new point</string>
     <string name="error_blank_name">Please fill the name</string>
-    <string name="Сancel">cancel</string>
-
-
+    <string name="cancel">Cancel</string>
 </resources>
